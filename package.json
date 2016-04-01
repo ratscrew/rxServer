@@ -1,0 +1,34 @@
+{
+  "name": "rx-server",
+  "version": "0.0.1",
+  "description": "a rxjs wrapper for socket.io",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "tsc:w": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ratscrew/rxServer.git"
+  },
+  "keywords": [
+    "rxjs",
+    "socket.io"
+  ],
+  "author": "Aidan Grace",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ratscrew/rxServer/issues"
+  },
+  "homepage": "https://github.com/ratscrew/rxServer#readme",
+  "dependencies": {
+    "concurrently": "^2.0.0",
+    "express": "^4.13.4",
+    "global-event-handler": "0.0.2",
+    "performance-now": "^0.2.0",
+    "rxjs": "^5.0.0-beta.4",
+    "socket.io": "^1.4.5",
+    "typescript": "^1.8.9",
+    "typings": "^0.7.11"
+  }
+}
