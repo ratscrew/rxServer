@@ -22,13 +22,18 @@
   },
   "homepage": "https://github.com/ratscrew/rxServer#readme",
   "dependencies": {
+    "angular2": "^2.0.0-beta.13",
     "concurrently": "^2.0.0",
+    "es6-shim": "^0.35.0",
     "express": "^4.13.4",
     "global-event-handler": "0.0.2",
     "performance-now": "^0.2.0",
-    "rxjs": "^5.0.0-beta.4",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
     "socket.io": "^1.4.5",
+    "systemjs": "^0.19.25",
     "typescript": "^1.8.9",
-    "typings": "^0.7.11"
+    "typings": "^0.7.11",
+    "zone.js": "0.6.6"
   }
 }
