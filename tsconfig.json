@@ -5,7 +5,12 @@
 		"sourceMap": true
 	},
   "files": [
-    "index.ts"
+    "index.ts",
+		"typings/main.d.ts",
+		"typings/main",
+		"typings/node"
+		
+		
   ]
 }
 
