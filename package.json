@@ -1,6 +1,6 @@
 {
   "name": "rx-server",
-  "version": "0.0.1",
+  "version": "0.0.9",
   "description": "a rxjs wrapper for socket.io",
   "main": "index.js",
   "scripts": {

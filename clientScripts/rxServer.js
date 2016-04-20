@@ -16,13 +16,13 @@ System.register(['rxjs/rx'], function(exports_1, context_1) {
                     if (url === void 0) { url = 'http://localhost:3000'; }
                     this.url = url;
                     this._subjects = {};
-                    this.publicFunction = function (name) {
+                    this.publicFunction = function (name, data) {
                         var vm = _this;
                         var rId = Math.random().toString() + performance.now().toString();
                         var _o = rx.Observable.create((function (_rId, _name, _vm) {
                             return function (_s) {
                                 _vm._subjects[_rId] = _s;
-                                _vm._socket.emit('publicFunction.subscribe', { rId: _rId, name: _name });
+                                _vm._socket.emit('publicFunction.subscribe', { rId: _rId, name: _name, data: data });
                                 return (function (__rId, __s, __vm) {
                                     return function () {
                                         if (__s === __vm._subjects[__rId]) {
