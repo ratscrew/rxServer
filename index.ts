@@ -17,16 +17,9 @@ export class server {
         
         vm.io.on('connection', (socket) => {
             let _rIds:string[] = [];
-            socket.emit('news', { hello: 'world' });
-            socket.on('my other event', function (data) {
-                console.log(data);
-            });
-            
-            
+
             socket.on('publicFunction.subscribe', function (data:IPubFuncData) {
-                console.log(data);
                 if(vm.publicFunctions[data.name]) {
-                    console.log(data.name);
                     let newPubFunc = new vm.publicFunctions[data.name](socket.request.user,data.data,vm.globalEventHandler);
                     newPubFunc._rId = data.rId;
                     vm.observables[data.rId] = newPubFunc.observable.subscribe(vm.subscribeFx(socket,data.rId,data.name),vm.errorFx(socket,data.rId,data.name),vm.completeFx(socket,data.rId,data.name,vm));
@@ -35,7 +28,6 @@ export class server {
             });
 
             socket.on('publicFunction.dissolve',(data:IPubFuncData)=>{
-                console.log(data);
                 if(vm.observables[data.rId]) {
                    let _o = vm.observables[data.rId];
                     _o.unsubscribe()
