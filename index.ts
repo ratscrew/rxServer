@@ -47,7 +47,12 @@ export class server {
             
             socket.on('disconnect',()=>{
                 _rIds.forEach((_rId)=>{
-                    vm.observables[_rId].unsubscribe()
+                    if(vm.observables[_rId]) {
+                    let _o = vm.observables[_rId];
+                        _o.unsubscribe()
+
+                        delete vm.observables[_rId];
+                    }
                 })
             })
         });  

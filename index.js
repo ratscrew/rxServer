@@ -40,7 +40,11 @@ var server = (function () {
             });
             socket.on('disconnect', function () {
                 _rIds.forEach(function (_rId) {
-                    vm.observables[_rId].unsubscribe();
+                    if (vm.observables[_rId]) {
+                        var _o = vm.observables[_rId];
+                        _o.unsubscribe();
+                        delete vm.observables[_rId];
+                    }
                 });
             });
         });
