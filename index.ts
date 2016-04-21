@@ -15,7 +15,8 @@ export class server {
         let vm = this;
         vm.io = io(app); 
         
-        vm.io.on('connection', function (socket) {
+        vm.io.on('connection', (socket) => {
+            let _rIds:string[] = [];
             socket.emit('news', { hello: 'world' });
             socket.on('my other event', function (data) {
                 console.log(data);
@@ -29,6 +30,7 @@ export class server {
                     let newPubFunc = new vm.publicFunctions[data.name](socket.request.user,data.data,vm.globalEventHandler);
                     newPubFunc._rId = data.rId;
                     vm.observables[data.rId] = newPubFunc.observable.subscribe(vm.subscribeFx(socket,data.rId,data.name),vm.errorFx(socket,data.rId,data.name),vm.completeFx(socket,data.rId,data.name,vm));
+                    _rIds.push(data.rId);
                 } 
             });
 
@@ -39,7 +41,14 @@ export class server {
                     _o.unsubscribe()
 
                     delete vm.observables[data.rId];
+                    _rIds.splice(_rIds.indexOf(data.rId),1)
                 }
+            })
+            
+            socket.on('disconnect',()=>{
+                _rIds.forEach((_rId)=>{
+                    vm.observables[_rId].unsubscribe()
+                })
             })
         });  
     }

@@ -6,11 +6,7 @@
 	},
   "files": [
     "index.ts",
-		"typings/main.d.ts",
-		"typings/main",
-		"typings/node"
-		
-		
+		"typings/main.d.ts"
   ]
 }
 
