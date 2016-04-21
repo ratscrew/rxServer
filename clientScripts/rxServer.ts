@@ -1,5 +1,5 @@
 import * as rx from 'rxjs/rx'
-import {IPubFuncData} from './../index';
+//import {IPubFuncData} from './../index';
 //import {Injectable} from 'angular2/core';
 declare var io:any;
 
@@ -46,3 +46,9 @@ export class serverRx {
 
     }
 }
+
+export interface IPubFuncData{
+    name:string,
+    rId:string,
+    data:any
+};
