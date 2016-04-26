@@ -9,10 +9,9 @@ export class serverRx {
     private _socket;
     private _livePubFuncs:{[id:string]:{name:string,data:any,rId:string}} = {};
     constructor(public url = 'http://localhost:3000') {
-        this.connet();
     }
     
-    connet(){
+    connect(){
         let me = this;
         if(me._socket && me._socket.disconnect){
             me._socket.disconnect();
@@ -48,14 +47,14 @@ export class serverRx {
         let rId:string = ___rId || Math.random().toString() + performance.now().toString();
         let _o:rx.Observable<any> = rx.Observable.create(((_rId,_name,_vm, _data,isReconnect)=>{return(_s:rx.Subject<any>)=>{
             if(!isReconnect)  _vm._subjects[_rId] = _s;
-            _vm._socket.emit('publicFunction.subscribe',{rId:_rId,name:_name,data:_data});
+            if(_vm._socket && _vm._socket.emit) _vm._socket.emit('publicFunction.subscribe',{rId:_rId,name:_name,data:_data});
             _vm._livePubFuncs[rId] = {rId:_rId,name:_name,data:_data};
             return ((__rId, __s, __vm)=>{
                 return ()=> {
                     if (__s === __vm._subjects[__rId]) {
                         delete __vm._subjects[__rId];
                         delete __vm._livePubFuncs[__rId];
-                        __vm._socket.emit('publicFunction.dissolve', {rId: __rId})
+                        if(__vm._socket && _vm._socket.emit) __vm._socket.emit('publicFunction.dissolve', {rId: __rId})
                     }
                 }
             })(_rId,_s, _vm)
