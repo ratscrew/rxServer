@@ -9,31 +9,38 @@ export class serverRx {
     private _socket;
     private _livePubFuncs:{[id:string]:{name:string,data:any,rId:string}} = {};
     constructor(public url = 'http://localhost:3000') {
-        let vm = this;
-        vm._socket = io.connect(this.url);
+        this.connet();
+    }
+    
+    connet(){
+        let me = this;
+        if(me._socket && me._socket.disconnect){
+            me._socket.disconnect();
+            io.connect(null,{'force new connection':true, forceNew: true});
+        } 
+        me._socket = io.connect(me.url);
         
-        vm._socket.on('publicFunction.next',(data:IPubFuncData)=>{
-            if(vm._subjects[data.rId]) vm._subjects[data.rId].next(data.data);
+        me._socket.on('publicFunction.next',(data:IPubFuncData)=>{
+            if(me._subjects[data.rId]) me._subjects[data.rId].next(data.data);
         });
 
-        vm._socket.on('publicFunction.complete',(data:IPubFuncData)=>{
-            if(vm._subjects[data.rId]){
-                vm._subjects[data.rId].complete();    
-                delete vm._subjects[data.rId];
-                delete vm._livePubFuncs[data.rId];
+        me._socket.on('publicFunction.complete',(data:IPubFuncData)=>{
+            if(me._subjects[data.rId]){
+                me._subjects[data.rId].complete();    
+                delete me._subjects[data.rId];
+                delete me._livePubFuncs[data.rId];
             } 
         });
 
-        vm._socket.on('publicFunction.error',(data:IPubFuncData)=>{
-            if(vm._subjects[data.rId]) vm._subjects[data.rId].error(data.data);
+        me._socket.on('publicFunction.error',(data:IPubFuncData)=>{
+            if(me._subjects[data.rId]) me._subjects[data.rId].error(data.data);
         });
         
-        vm._socket.on('connect',()=>{
-            for(var i in vm._livePubFuncs){
-                vm.publicFunction(vm._livePubFuncs[i].name,vm._livePubFuncs[i].data,vm._livePubFuncs[i].rId).subscribe()
+        me._socket.on('connect',()=>{
+            for(var i in me._livePubFuncs){
+                me.publicFunction(me._livePubFuncs[i].name,me._livePubFuncs[i].data,me._livePubFuncs[i].rId).subscribe()
             }
         })
-
     }
 
     publicFunction = (name:string,data?,___rId?)=>{

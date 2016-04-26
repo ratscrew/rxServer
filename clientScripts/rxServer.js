@@ -39,29 +39,36 @@ System.register(['rxjs/rx'], function(exports_1, context_1) {
                         })(rId, name, vm, data, (___rId ? true : false)));
                         return _o;
                     };
-                    var vm = this;
-                    vm._socket = io.connect(this.url);
-                    vm._socket.on('publicFunction.next', function (data) {
-                        if (vm._subjects[data.rId])
-                            vm._subjects[data.rId].next(data.data);
-                    });
-                    vm._socket.on('publicFunction.complete', function (data) {
-                        if (vm._subjects[data.rId]) {
-                            vm._subjects[data.rId].complete();
-                            delete vm._subjects[data.rId];
-                            delete vm._livePubFuncs[data.rId];
-                        }
-                    });
-                    vm._socket.on('publicFunction.error', function (data) {
-                        if (vm._subjects[data.rId])
-                            vm._subjects[data.rId].error(data.data);
-                    });
-                    vm._socket.on('connect', function () {
-                        for (var i in vm._livePubFuncs) {
-                            vm.publicFunction(vm._livePubFuncs[i].name, vm._livePubFuncs[i].data, vm._livePubFuncs[i].rId).subscribe();
-                        }
-                    });
+                    this.connet();
                 }
+                serverRx.prototype.connet = function () {
+                    var me = this;
+                    if (me._socket && me._socket.disconnect) {
+                        me._socket.disconnect();
+                        io.connect(null, { 'force new connection': true, forceNew: true });
+                    }
+                    me._socket = io.connect(me.url);
+                    me._socket.on('publicFunction.next', function (data) {
+                        if (me._subjects[data.rId])
+                            me._subjects[data.rId].next(data.data);
+                    });
+                    me._socket.on('publicFunction.complete', function (data) {
+                        if (me._subjects[data.rId]) {
+                            me._subjects[data.rId].complete();
+                            delete me._subjects[data.rId];
+                            delete me._livePubFuncs[data.rId];
+                        }
+                    });
+                    me._socket.on('publicFunction.error', function (data) {
+                        if (me._subjects[data.rId])
+                            me._subjects[data.rId].error(data.data);
+                    });
+                    me._socket.on('connect', function () {
+                        for (var i in me._livePubFuncs) {
+                            me.publicFunction(me._livePubFuncs[i].name, me._livePubFuncs[i].data, me._livePubFuncs[i].rId).subscribe();
+                        }
+                    });
+                };
                 return serverRx;
             }());
             exports_1("serverRx", serverRx);
