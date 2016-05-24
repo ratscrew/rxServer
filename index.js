@@ -15,22 +15,15 @@ var server = (function () {
         vm.io = io(app);
         vm.io.on('connection', function (socket) {
             var _rIds = [];
-            socket.emit('news', { hello: 'world' });
-            socket.on('my other event', function (data) {
-                console.log(data);
-            });
             socket.on('publicFunction.subscribe', function (data) {
-                console.log(data);
                 if (vm.publicFunctions[data.name]) {
-                    console.log(data.name);
-                    var newPubFunc = new vm.publicFunctions[data.name](socket.request.user, data.data, vm.globalEventHandler);
+                    var newPubFunc = new vm.publicFunctions[data.name](socket.client.request.user, data.data, vm.globalEventHandler);
                     newPubFunc._rId = data.rId;
                     vm.observables[data.rId] = newPubFunc.observable.subscribe(vm.subscribeFx(socket, data.rId, data.name), vm.errorFx(socket, data.rId, data.name), vm.completeFx(socket, data.rId, data.name, vm));
                     _rIds.push(data.rId);
                 }
             });
             socket.on('publicFunction.dissolve', function (data) {
-                console.log(data);
                 if (vm.observables[data.rId]) {
                     var _o = vm.observables[data.rId];
                     _o.unsubscribe();

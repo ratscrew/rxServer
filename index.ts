@@ -1,5 +1,5 @@
 import * as io from 'socket.io';
-import * as rx from 'rxjs/rx';
+import * as rx from 'rxjs/Rx';
 import * as express from 'express';
 import {globalEventHandler} from 'global-event-handler'
 
@@ -20,7 +20,7 @@ export class server {
 
             socket.on('publicFunction.subscribe', function (data:IPubFuncData) {
                 if(vm.publicFunctions[data.name]) {
-                    let newPubFunc = new vm.publicFunctions[data.name](socket.request.user,data.data,vm.globalEventHandler);
+                    let newPubFunc = new vm.publicFunctions[data.name](socket.client.request.user,data.data,vm.globalEventHandler);
                     newPubFunc._rId = data.rId;
                     vm.observables[data.rId] = newPubFunc.observable.subscribe(vm.subscribeFx(socket,data.rId,data.name),vm.errorFx(socket,data.rId,data.name),vm.completeFx(socket,data.rId,data.name,vm));
                     _rIds.push(data.rId);

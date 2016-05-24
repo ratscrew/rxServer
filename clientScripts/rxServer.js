@@ -24,14 +24,16 @@ System.register(['rxjs/rx'], function(exports_1, context_1) {
                             return function (_s) {
                                 if (!isReconnect)
                                     _vm._subjects[_rId] = _s;
-                                _vm._socket.emit('publicFunction.subscribe', { rId: _rId, name: _name, data: _data });
+                                if (_vm._socket && _vm._socket.emit)
+                                    _vm._socket.emit('publicFunction.subscribe', { rId: _rId, name: _name, data: _data });
                                 _vm._livePubFuncs[rId] = { rId: _rId, name: _name, data: _data };
                                 return (function (__rId, __s, __vm) {
                                     return function () {
                                         if (__s === __vm._subjects[__rId]) {
                                             delete __vm._subjects[__rId];
                                             delete __vm._livePubFuncs[__rId];
-                                            __vm._socket.emit('publicFunction.dissolve', { rId: __rId });
+                                            if (__vm._socket && _vm._socket.emit)
+                                                __vm._socket.emit('publicFunction.dissolve', { rId: __rId });
                                         }
                                     };
                                 })(_rId, _s, _vm);
@@ -39,9 +41,8 @@ System.register(['rxjs/rx'], function(exports_1, context_1) {
                         })(rId, name, vm, data, (___rId ? true : false)));
                         return _o;
                     };
-                    this.connet();
                 }
-                serverRx.prototype.connet = function () {
+                serverRx.prototype.connect = function () {
                     var me = this;
                     if (me._socket && me._socket.disconnect) {
                         me._socket.disconnect();
