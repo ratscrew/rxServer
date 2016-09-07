@@ -3,15 +3,15 @@ import * as rx from 'rxjs/Rx';
 import * as express from 'express';
 import {globalEventHandler} from 'global-event-handler'
 
-export {globalEventHandler, globalEventLissener,globalEventHandlerClient,globalEvent} from 'global-event-handler';
+export {globalEventHandler, globalEventLissener,globalEventHandlerClient,globalEvent,globalEventHandlerOptions} from 'global-event-handler';
 
 export class server {
     io:SocketIO.Server;
-    globalEventHandler:globalEventHandler = new globalEventHandler();
+    globalEventHandler:globalEventHandler = new globalEventHandler(this.globalEventHandlerOptions);
     private publicFunctions:{[id:string]:any} = {};
     private observables:{[id:string]:rx.Subscriber<any> } = {};
 
-    constructor(app:express.Application){
+    constructor(app:express.Application, private globalEventHandlerOptions?:globalEventHandlerOptions ){
         let vm = this;
         vm.io = io(app); 
         

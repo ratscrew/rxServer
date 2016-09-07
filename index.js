@@ -7,8 +7,9 @@ exports.globalEventLissener = global_event_handler_2.globalEventLissener;
 exports.globalEventHandlerClient = global_event_handler_2.globalEventHandlerClient;
 exports.globalEvent = global_event_handler_2.globalEvent;
 var server = (function () {
-    function server(app) {
-        this.globalEventHandler = new global_event_handler_1.globalEventHandler();
+    function server(app, globalEventHandlerOptions) {
+        this.globalEventHandlerOptions = globalEventHandlerOptions;
+        this.globalEventHandler = new global_event_handler_1.globalEventHandler(this.globalEventHandlerOptions);
         this.publicFunctions = {};
         this.observables = {};
         var vm = this;

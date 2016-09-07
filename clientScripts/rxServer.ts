@@ -1,4 +1,4 @@
-import * as rx from 'rxjs/rx'
+import * as rx from 'rxjs/Rx'
 //import {IPubFuncData} from './../index';
 //import {Injectable} from 'angular2/core';
 declare var io:any;
@@ -36,6 +36,12 @@ export class serverRx {
         });
         
         me._socket.on('connect',()=>{
+            for(var i in me._livePubFuncs){
+                me.publicFunction(me._livePubFuncs[i].name,me._livePubFuncs[i].data,me._livePubFuncs[i].rId).subscribe()
+            }
+        })
+        
+        me._socket.on('reconnect',()=>{
             for(var i in me._livePubFuncs){
                 me.publicFunction(me._livePubFuncs[i].name,me._livePubFuncs[i].data,me._livePubFuncs[i].rId).subscribe()
             }

@@ -1,4 +1,4 @@
-System.register(['rxjs/rx'], function(exports_1, context_1) {
+System.register(['rxjs/Rx'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var rx;

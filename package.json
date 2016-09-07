@@ -1,6 +1,6 @@
 {
   "name": "rx-server",
-  "version": "0.0.18",
+  "version": "0.0.21",
   "description": "a rxjs wrapper for socket.io",
   "main": "index.js",
   "scripts": {
@@ -22,11 +22,10 @@
   },
   "homepage": "https://github.com/ratscrew/rxServer#readme",
   "dependencies": {
-    "angular2": "^2.0.0-beta.13",
     "concurrently": "^2.0.0",
     "es6-shim": "^0.35.0",
     "express": "^4.13.4",
-    "global-event-handler": "0.0.8",
+    "global-event-handler": "0.0.10",
     "performance-now": "^0.2.0",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
