@@ -1,4 +1,5 @@
-import * as rx from 'rxjs/Rx'
+import * as rx from 'rxjs/Rx';
+import {Observable, Subject, Subscription} from 'rxjs/Rx';
 //import {IPubFuncData} from './../index';
 //import {Injectable} from 'angular2/core';
 declare var io:any;
