@@ -69,6 +69,11 @@ System.register(['rxjs/Rx'], function(exports_1, context_1) {
                             me.publicFunction(me._livePubFuncs[i].name, me._livePubFuncs[i].data, me._livePubFuncs[i].rId).subscribe();
                         }
                     });
+                    me._socket.on('reconnect', function () {
+                        for (var i in me._livePubFuncs) {
+                            me.publicFunction(me._livePubFuncs[i].name, me._livePubFuncs[i].data, me._livePubFuncs[i].rId).subscribe();
+                        }
+                    });
                 };
                 return serverRx;
             }());

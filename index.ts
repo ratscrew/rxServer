@@ -1,7 +1,7 @@
 import * as io from 'socket.io';
 import * as rx from 'rxjs/Rx';
 import * as express from 'express';
-import {globalEventHandler} from 'global-event-handler'
+import {globalEventHandler, globalEventHandlerOptions} from 'global-event-handler'
 
 export {globalEventHandler, globalEventLissener,globalEventHandlerClient,globalEvent,globalEventHandlerOptions} from 'global-event-handler';
 
