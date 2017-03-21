@@ -1,6 +1,6 @@
 {
   "name": "rx-server",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "description": "a rxjs wrapper for socket.io",
   "main": "index.js",
   "scripts": {
@@ -25,10 +25,10 @@
     "concurrently": "^2.0.0",
     "es6-shim": "^0.35.0",
     "express": "^4.13.4",
-    "global-event-handler": "0.0.11",
+    "global-event-handler": "0.0.12",
     "performance-now": "^0.2.0",
     "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-rc.4",
+    "rxjs": "5.2.0",
     "socket.io": "1.4.5",
     "systemjs": "^0.19.25",
     "typescript": "^1.8.9",
